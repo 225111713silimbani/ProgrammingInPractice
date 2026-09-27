@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <float.h>
+
+int main() {
+    int n;
+
+    printf("Enter number of suppliers: ");
+    scanf("%d", &n);
+
+    char supplierName[100];
+    double bestPrice = DBL_MAX;
+    int bestQualifiedIndex = -1;
+
+    for (int i = 0; i < n; i++) {
+        double price, budget;
+        int registrationStatus, documentsComplete;
+
+        printf("\n--- Supplier %d ---\n", i + 1);
+        printf("Supplier name: ");
+        scanf("%99s", supplierName);
+
+        printf("Supplier price: ");
+        scanf("%lf", &price);
+
+        printf("Budget: ");
+        scanf("%lf", &budget);
+
+        printf("Registration status (1=Yes, 0=No): ");
+        scanf("%d", &registrationStatus);
+
+        printf("Documents complete (1=Yes, 0=No): ");
+        scanf("%d", &documentsComplete);
+
+        int qualified = (registrationStatus == 1) &&
+                         (documentsComplete == 1) &&
+                         (price <= budget);
+
+        if (qualified) {
+            printf("Result: Qualified\n");
+
+            if (price < bestPrice) {
+                bestPrice = price;
+                bestQualifiedIndex = i;
+            }
+        } else {
+            printf("Result: Disqualified\n");
+        }
+    }
+
+    return 0;
+}
